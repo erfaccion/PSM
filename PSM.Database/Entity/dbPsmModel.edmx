@@ -1,0 +1,308 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbPSMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="MOVIMENTO_MANUAL">
+          <Key>
+            <PropertyRef Name="DAT_MES" />
+            <PropertyRef Name="DAT_ANO" />
+            <PropertyRef Name="NUM_LANCAMENTO" />
+            <PropertyRef Name="COD_PRODUTO" />
+            <PropertyRef Name="COD_COSIF" />
+          </Key>
+          <Property Name="DAT_MES" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="DAT_ANO" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="NUM_LANCAMENTO" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="COD_PRODUTO" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="COD_COSIF" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="DES_DESCRICAO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DAT_MOVIMENTO" Type="smalldatetime" Nullable="false" />
+          <Property Name="COD_USUARIO" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="VAL_VALOR" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUTO">
+          <Key>
+            <PropertyRef Name="COD_PRODUTO" />
+          </Key>
+          <Property Name="COD_PRODUTO" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="DES_PRODUTO" Type="varchar" MaxLength="30" />
+          <Property Name="STA_STATUS" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="PRODUTO_COSIF">
+          <Key>
+            <PropertyRef Name="COD_PRODUTO" />
+            <PropertyRef Name="COD_COSIF" />
+          </Key>
+          <Property Name="COD_PRODUTO" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="COD_COSIF" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="COD_CLASSIFICACAO" Type="char" MaxLength="6" />
+          <Property Name="STA_STATUS" Type="char" MaxLength="1" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'dbPSM.dbo.VW_MOVIMENTO_MANUAL' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VW_MOVIMENTO_MANUAL">
+          <Key>
+            <PropertyRef Name="DAT_MES" />
+            <PropertyRef Name="DAT_ANO" />
+            <PropertyRef Name="NUM_LANCAMENTO" />
+            <PropertyRef Name="COD_PRODUTO" />
+            <PropertyRef Name="COD_COSIF" />
+            <PropertyRef Name="DES_DESCRICAO" />
+            <PropertyRef Name="DAT_MOVIMENTO" />
+            <PropertyRef Name="COD_USUARIO" />
+            <PropertyRef Name="VAL_VALOR" />
+          </Key>
+          <Property Name="DAT_MES" Type="numeric" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="DAT_ANO" Type="numeric" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="NUM_LANCAMENTO" Type="numeric" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="COD_PRODUTO" Type="char" MaxLength="4" Nullable="false" />
+          <Property Name="DES_PRODUTO" Type="varchar" MaxLength="30" />
+          <Property Name="COD_COSIF" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="DES_DESCRICAO" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DAT_MOVIMENTO" Type="smalldatetime" Nullable="false" />
+          <Property Name="COD_USUARIO" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="VAL_VALOR" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_MOVIMENTO_MANUAL_PRODUTO_COSIF">
+          <End Role="PRODUTO_COSIF" Type="Self.PRODUTO_COSIF" Multiplicity="1" />
+          <End Role="MOVIMENTO_MANUAL" Type="Self.MOVIMENTO_MANUAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO_COSIF">
+              <PropertyRef Name="COD_PRODUTO" />
+              <PropertyRef Name="COD_COSIF" />
+            </Principal>
+            <Dependent Role="MOVIMENTO_MANUAL">
+              <PropertyRef Name="COD_PRODUTO" />
+              <PropertyRef Name="COD_COSIF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_COSIF_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="PRODUTO_COSIF" Type="Self.PRODUTO_COSIF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="COD_PRODUTO" />
+            </Principal>
+            <Dependent Role="PRODUTO_COSIF">
+              <PropertyRef Name="COD_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbPSMModelStoreContainer">
+          <EntitySet Name="MOVIMENTO_MANUAL" EntityType="Self.MOVIMENTO_MANUAL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUTO" EntityType="Self.PRODUTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUTO_COSIF" EntityType="Self.PRODUTO_COSIF" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VW_MOVIMENTO_MANUAL" EntityType="Self.VW_MOVIMENTO_MANUAL" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VW_MOVIMENTO_MANUAL].[DAT_MES] AS [DAT_MES], 
+    [VW_MOVIMENTO_MANUAL].[DAT_ANO] AS [DAT_ANO], 
+    [VW_MOVIMENTO_MANUAL].[NUM_LANCAMENTO] AS [NUM_LANCAMENTO], 
+    [VW_MOVIMENTO_MANUAL].[COD_PRODUTO] AS [COD_PRODUTO], 
+    [VW_MOVIMENTO_MANUAL].[DES_PRODUTO] AS [DES_PRODUTO], 
+    [VW_MOVIMENTO_MANUAL].[COD_COSIF] AS [COD_COSIF], 
+    [VW_MOVIMENTO_MANUAL].[DES_DESCRICAO] AS [DES_DESCRICAO], 
+    [VW_MOVIMENTO_MANUAL].[DAT_MOVIMENTO] AS [DAT_MOVIMENTO], 
+    [VW_MOVIMENTO_MANUAL].[COD_USUARIO] AS [COD_USUARIO], 
+    [VW_MOVIMENTO_MANUAL].[VAL_VALOR] AS [VAL_VALOR]
+    FROM [dbo].[VW_MOVIMENTO_MANUAL] AS [VW_MOVIMENTO_MANUAL]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_MOVIMENTO_MANUAL_PRODUTO_COSIF" Association="Self.FK_MOVIMENTO_MANUAL_PRODUTO_COSIF">
+            <End Role="PRODUTO_COSIF" EntitySet="PRODUTO_COSIF" />
+            <End Role="MOVIMENTO_MANUAL" EntitySet="MOVIMENTO_MANUAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_COSIF_PRODUTO" Association="Self.FK_PRODUTO_COSIF_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_COSIF" EntitySet="PRODUTO_COSIF" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbPSMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="MOVIMENTO_MANUAL">
+          <Key>
+            <PropertyRef Name="DAT_MES" />
+            <PropertyRef Name="DAT_ANO" />
+            <PropertyRef Name="NUM_LANCAMENTO" />
+            <PropertyRef Name="COD_PRODUTO" />
+            <PropertyRef Name="COD_COSIF" />
+          </Key>
+          <Property Name="DAT_MES" Type="Decimal" Precision="2" Scale="0" Nullable="false" />
+          <Property Name="DAT_ANO" Type="Decimal" Precision="4" Scale="0" Nullable="false" />
+          <Property Name="NUM_LANCAMENTO" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="COD_PRODUTO" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="COD_COSIF" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="DES_DESCRICAO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DAT_MOVIMENTO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="COD_USUARIO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="VAL_VALOR" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="PRODUTO_COSIF" Relationship="Self.FK_MOVIMENTO_MANUAL_PRODUTO_COSIF" FromRole="MOVIMENTO_MANUAL" ToRole="PRODUTO_COSIF" />
+        </EntityType>
+        <EntityType Name="PRODUTO">
+          <Key>
+            <PropertyRef Name="COD_PRODUTO" />
+          </Key>
+          <Property Name="COD_PRODUTO" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="DES_PRODUTO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="STA_STATUS" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="PRODUTO_COSIF" Relationship="Self.FK_PRODUTO_COSIF_PRODUTO" FromRole="PRODUTO" ToRole="PRODUTO_COSIF" />
+        </EntityType>
+        <EntityType Name="PRODUTO_COSIF">
+          <Key>
+            <PropertyRef Name="COD_PRODUTO" />
+            <PropertyRef Name="COD_COSIF" />
+          </Key>
+          <Property Name="COD_PRODUTO" Type="String" MaxLength="4" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="COD_COSIF" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="COD_CLASSIFICACAO" Type="String" MaxLength="6" FixedLength="true" Unicode="false" />
+          <Property Name="STA_STATUS" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="MOVIMENTO_MANUAL" Relationship="Self.FK_MOVIMENTO_MANUAL_PRODUTO_COSIF" FromRole="PRODUTO_COSIF" ToRole="MOVIMENTO_MANUAL" />
+          <NavigationProperty Name="PRODUTO" Relationship="Self.FK_PRODUTO_COSIF_PRODUTO" FromRole="PRODUTO_COSIF" ToRole="PRODUTO" />
+        </EntityType>
+        <Association Name="FK_MOVIMENTO_MANUAL_PRODUTO_COSIF">
+          <End Role="PRODUTO_COSIF" Type="Self.PRODUTO_COSIF" Multiplicity="1" />
+          <End Role="MOVIMENTO_MANUAL" Type="Self.MOVIMENTO_MANUAL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO_COSIF">
+              <PropertyRef Name="COD_PRODUTO" />
+              <PropertyRef Name="COD_COSIF" />
+            </Principal>
+            <Dependent Role="MOVIMENTO_MANUAL">
+              <PropertyRef Name="COD_PRODUTO" />
+              <PropertyRef Name="COD_COSIF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PRODUTO_COSIF_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="PRODUTO_COSIF" Type="Self.PRODUTO_COSIF" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="COD_PRODUTO" />
+            </Principal>
+            <Dependent Role="PRODUTO_COSIF">
+              <PropertyRef Name="COD_PRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbPSMEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="MOVIMENTO_MANUAL" EntityType="Self.MOVIMENTO_MANUAL" />
+          <EntitySet Name="PRODUTO" EntityType="Self.PRODUTO" />
+          <EntitySet Name="PRODUTO_COSIF" EntityType="Self.PRODUTO_COSIF" />
+          <AssociationSet Name="FK_MOVIMENTO_MANUAL_PRODUTO_COSIF" Association="Self.FK_MOVIMENTO_MANUAL_PRODUTO_COSIF">
+            <End Role="PRODUTO_COSIF" EntitySet="PRODUTO_COSIF" />
+            <End Role="MOVIMENTO_MANUAL" EntitySet="MOVIMENTO_MANUAL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PRODUTO_COSIF_PRODUTO" Association="Self.FK_PRODUTO_COSIF_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="PRODUTO_COSIF" EntitySet="PRODUTO_COSIF" />
+          </AssociationSet>
+          <EntitySet Name="VW_MOVIMENTO_MANUAL" EntityType="dbPSMModel.VW_MOVIMENTO_MANUAL" />
+        </EntityContainer>
+        <EntityType Name="VW_MOVIMENTO_MANUAL">
+          <Key>
+            <PropertyRef Name="DAT_MES" />
+            <PropertyRef Name="DAT_ANO" />
+            <PropertyRef Name="NUM_LANCAMENTO" />
+            <PropertyRef Name="COD_PRODUTO" />
+            <PropertyRef Name="COD_COSIF" />
+            <PropertyRef Name="DES_DESCRICAO" />
+            <PropertyRef Name="DAT_MOVIMENTO" />
+            <PropertyRef Name="COD_USUARIO" />
+            <PropertyRef Name="VAL_VALOR" />
+          </Key>
+          <Property Name="DAT_MES" Type="Decimal" Nullable="false" Precision="2" Scale="0" />
+          <Property Name="DAT_ANO" Type="Decimal" Nullable="false" Precision="4" Scale="0" />
+          <Property Name="NUM_LANCAMENTO" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="COD_PRODUTO" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="DES_PRODUTO" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="COD_COSIF" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="DES_DESCRICAO" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DAT_MOVIMENTO" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="COD_USUARIO" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="VAL_VALOR" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbPSMModelStoreContainer" CdmEntityContainer="dbPSMEntities">
+          <EntitySetMapping Name="MOVIMENTO_MANUAL">
+            <EntityTypeMapping TypeName="dbPSMModel.MOVIMENTO_MANUAL">
+              <MappingFragment StoreEntitySet="MOVIMENTO_MANUAL">
+                <ScalarProperty Name="DAT_MES" ColumnName="DAT_MES" />
+                <ScalarProperty Name="DAT_ANO" ColumnName="DAT_ANO" />
+                <ScalarProperty Name="NUM_LANCAMENTO" ColumnName="NUM_LANCAMENTO" />
+                <ScalarProperty Name="COD_PRODUTO" ColumnName="COD_PRODUTO" />
+                <ScalarProperty Name="COD_COSIF" ColumnName="COD_COSIF" />
+                <ScalarProperty Name="DES_DESCRICAO" ColumnName="DES_DESCRICAO" />
+                <ScalarProperty Name="DAT_MOVIMENTO" ColumnName="DAT_MOVIMENTO" />
+                <ScalarProperty Name="COD_USUARIO" ColumnName="COD_USUARIO" />
+                <ScalarProperty Name="VAL_VALOR" ColumnName="VAL_VALOR" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO">
+            <EntityTypeMapping TypeName="dbPSMModel.PRODUTO">
+              <MappingFragment StoreEntitySet="PRODUTO">
+                <ScalarProperty Name="COD_PRODUTO" ColumnName="COD_PRODUTO" />
+                <ScalarProperty Name="DES_PRODUTO" ColumnName="DES_PRODUTO" />
+                <ScalarProperty Name="STA_STATUS" ColumnName="STA_STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTO_COSIF">
+            <EntityTypeMapping TypeName="dbPSMModel.PRODUTO_COSIF">
+              <MappingFragment StoreEntitySet="PRODUTO_COSIF">
+                <ScalarProperty Name="COD_PRODUTO" ColumnName="COD_PRODUTO" />
+                <ScalarProperty Name="COD_COSIF" ColumnName="COD_COSIF" />
+                <ScalarProperty Name="COD_CLASSIFICACAO" ColumnName="COD_CLASSIFICACAO" />
+                <ScalarProperty Name="STA_STATUS" ColumnName="STA_STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VW_MOVIMENTO_MANUAL">
+            <EntityTypeMapping TypeName="dbPSMModel.VW_MOVIMENTO_MANUAL">
+              <MappingFragment StoreEntitySet="VW_MOVIMENTO_MANUAL">
+                <ScalarProperty Name="VAL_VALOR" ColumnName="VAL_VALOR" />
+                <ScalarProperty Name="COD_USUARIO" ColumnName="COD_USUARIO" />
+                <ScalarProperty Name="DAT_MOVIMENTO" ColumnName="DAT_MOVIMENTO" />
+                <ScalarProperty Name="DES_DESCRICAO" ColumnName="DES_DESCRICAO" />
+                <ScalarProperty Name="COD_COSIF" ColumnName="COD_COSIF" />
+                <ScalarProperty Name="DES_PRODUTO" ColumnName="DES_PRODUTO" />
+                <ScalarProperty Name="COD_PRODUTO" ColumnName="COD_PRODUTO" />
+                <ScalarProperty Name="NUM_LANCAMENTO" ColumnName="NUM_LANCAMENTO" />
+                <ScalarProperty Name="DAT_ANO" ColumnName="DAT_ANO" />
+                <ScalarProperty Name="DAT_MES" ColumnName="DAT_MES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

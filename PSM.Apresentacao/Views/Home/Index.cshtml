@@ -1,0 +1,291 @@
+﻿<link rel="stylesheet" href="../../Content/SoftGrid.css" type="text/css" />
+<script type="text/javascript" src="../../Content/SoftGrid.js"></script>
+<script type="text/javascript" src="../../Scripts/FormatacaoJS.js"></script>
+
+
+
+<script type="text/javascript">
+    var gWidth = 0;
+    var gHeight = 0;
+    var gMessage = "@ViewBag.Error";
+
+    function fnAtualizarPesquisa() {
+        $.ajax({
+            url: baseUrl() + "Home/ListarMovimentos",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                SoftGrid_Config["grid1"]["DataSource"] = data;
+                SoftGrid_ConstructObject();
+            }
+        });
+    }
+
+    function fnConfigurarGrids() {
+        SoftGrid_Config =
+        {
+            "grid1": {
+                "SelectedIndex": -1,
+                "DataSource": undefined,
+                "RemovedField": "",
+                "RemovedValue": "",
+                "Width": 850,
+                "Height": 300,
+                "HeaderHeight": 30,
+                "RowHeight": 30,
+                "ViewIcon": false,
+                "EditIcon": false,
+                "RemoveIcon": false,
+                "ViewRow": undefined,
+                "EditRow": undefined,
+                "DeleteRow": undefined,
+                "ClickCell": undefined,
+                "ClickRow": undefined,
+                "DoubleClickRow": undefined,
+                "Columns": [
+                    { "column": "DAT_MES", "label": "Mês", "sort": true, "align": "left", "type": "string", "width": 50 },
+                    { "column": "DAT_ANO", "label": "Ano", "sort": true, "align": "left", "type": "string", "width": 50 },
+                    { "column": "COD_PRODUTO", "label": "Código do Produto", "sort": true, "align": "left", "type": "string", "width": 150 },
+                    { "column": "DES_PRODUTO", "label": "Descrição do Produto", "sort": true, "align": "left", "type": "string", "width": 200 },
+                    { "column": "NUM_LANCAMENTO", "label": "NR Lançamento", "sort": true, "align": "left", "type": "string", "width": 130 },
+                    { "column": "DES_DESCRICAO", "label": "Descrição", "sort": true, "align": "left", "type": "string", "width": 100 },
+                    { "column": "VAL_VALOR", "label": "Valor", "sort": true, "align": "right", "type": "number", "decimals": 2, "width": 100 },
+                ]
+            }
+
+        }
+
+
+        SoftGrid_ConstructObject();
+
+    }
+
+    function ClickRow_Handler(id) {
+        //alert(SoftGrid_Config["grid1"]["DataSource"][id].DAT_MES);
+
+        $("#fDatMes").val(SoftGrid_Config["grid1"]["DataSource"][id].DAT_MES);
+        $("#fDatAno").val(SoftGrid_Config["grid1"]["DataSource"][id].DAT_ANO);
+        $("#fDesDescricao").val(SoftGrid_Config["grid1"]["DataSource"][id].DES_DESCRICAO);
+        $("#fValValor").val(SoftGrid_Config["grid1"]["DataSource"][id].VAL_VALOR);
+
+        $("#fCodProduto").val(SoftGrid_Config["grid1"]["DataSource"][id].COD_PRODUTO);
+        $("#fCodCosif").val(SoftGrid_Config["grid1"]["DataSource"][id].COD_COSIF);
+    }
+
+    function fnHabilitarCampos(bHabilitar) {
+        if (bHabilitar) {
+            $("#fDatMes").removeAttr("disabled");
+            $("#fDatAno").removeAttr("disabled");
+            $("#fDesDescricao").removeAttr("disabled");
+            $("#fValValor").removeAttr("disabled");
+            $("#fCodProduto").removeAttr("disabled");
+            $("#fCodCosif").removeAttr("disabled");
+        }
+        else {
+            $("#fDatMes").attr("disabled", "disabled");
+            $("#fDatAno").attr("disabled", "disabled");
+            $("#fDesDescricao").attr("disabled", "disabled");
+            $("#fValValor").attr("disabled", "disabled");
+            $("#fCodProduto").attr("disabled", "disabled");
+            $("#fCodCosif").attr("disabled", "disabled");
+        }
+    }
+
+    function btLimpar_Click() {
+        $("#fDatMes").val("");
+        $("#fDatAno").val("");
+        $("#fDesDescricao").val("");
+        $("#fValValor").val("");
+        $("#fCodProduto").val("");
+        $("#fCodCosif").val("");
+
+
+        $("#btLimpar").attr("disabled", "disabled");
+        $("#btNovo").removeAttr("disabled");
+        $("#btIncluir").attr("disabled", "disabled");
+        fnHabilitarCampos(false);
+
+    }
+
+    function btNovo_Click() {
+        $("#btLimpar").removeAttr("disabled");
+        $("#btNovo").attr("disabled", "disabled");
+        $("#btIncluir").removeAttr("disabled");
+        fnHabilitarCampos(true);
+        $("#fDatMes").focus();
+
+    }
+
+    function fnValidarForm() {
+        if ($("#fDatMes").val() == "" || $("#fDatMes").val() < "1" || $("#fDatMes").val() > "12") {
+            alert("O mês deve estar entre 1 e 12");
+            $("#fDatMes").focus();
+            return false;
+        }
+
+        if ($("#fDatAno").val() == "" || $("#fDatAno").val() < "1753") {
+            alert("Digite um ano válido");
+            $("#fDatAno").focus();
+            return false;
+        }
+
+        if ($("#fCodProduto").val() == "") {
+            alert("Selecione um produto");
+            $("#fCodProduto").focus();
+            return false;
+        }
+
+        if ($("#fCodCosif").val() == "") {
+            alert("Selecione um código de Cosif");
+            $("#fCodCosif").focus();
+            return false;
+        }
+
+        if ($("#fValValor").val() == "") $("#fValValor").val("0,00");
+
+        return true;
+    }
+
+    function fnSalvar() {
+        var parameterData = {};
+
+        parameterData.dat_ano = $("#fDatAno").val();
+        parameterData.dat_mes = $("#fDatMes").val();
+        parameterData.des_descricao = $("#fDesDescricao").val();
+        parameterData.val_valor = $("#fValValor").val();
+        parameterData.cod_produto = $("#fCodProduto").val();
+        parameterData.cod_cosif = $("#fCodCosif").val();
+
+        $.ajax({
+            url: baseUrl() + "Home/IncluirMovimento",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                if (data.result == "OK") {
+
+                    fnAtualizarPesquisa();
+                    btLimpar_Click();
+                    fnHabilitarCampos(false);
+                }
+                else {
+                    alert(data.mensagem);
+                }
+            },
+            data: parameterData
+        });
+    }
+
+    function btIncluir_Click() {
+        if (fnValidarForm()) {
+            fnSalvar();
+        }
+
+    }
+
+    $(document).ready(function () {
+        $.ajaxSetup({ cache: false });
+
+        //Configurar Colunas da GRID
+        fnConfigurarGrids();
+        fnAtualizarPesquisa();
+
+
+        ApplyFormatter();
+
+        $("#btLimpar").on("click", btLimpar_Click);
+        $("#btNovo").on("click", btNovo_Click);
+        $("#btIncluir").on("click", btIncluir_Click);
+
+
+
+    });
+
+
+
+</script>
+
+<div style="width: 100%; height: 100%; position: relative;">
+
+    <div class="bodyElement" style="padding: 0px 0px 0px 0px; display: block;">
+        <div id="DivFolha" class="white-div-box-shadow"
+             style="padding: 10px 10px 10px 10px;
+                    background-color: white;
+                    width: 100%;
+                    height: 650px;
+                    overflow-x: hidden;
+                    overflow-y: hidden;
+                    ">
+
+
+            <div style="width: 100%">
+
+                <div style="position: relative; top: 0px;  width: 100%; display: inline-flex; font-family: Roboto; font-size: 13px;">
+                    <span style="width: 280px; " type="text">Mês:</span>
+                    <span style="width: 300px; position: relative; left: 10px;" type="text">Ano:</span>
+                </div>
+
+                <div style="position: relative; top: 0px;  width: 100%; display: inline-flex; font-family: Roboto; font-size: 13px;">
+                    <input id="fDatMes" name="DAT_MES" class="inteiro-positivo" style="width: 300px; " type="text" maxlength="2" disabled>
+                    <input id="fDatAno" name="DAT_ANO" class="inteiro-positivo" style="width: 300px;  position: relative; left: 10px;" type="text" maxlength="4" disabled>
+                </div>
+
+                <div style="position: relative; top: 0px;  width: 100%; display: inline-flex; font-family: Roboto; font-size: 13px;">
+                    <span style="width: 280px; " type="text">Produto:</span>
+                    <span style="width: 300px; position: relative; left: 10px;" type="text">Cosif:</span>
+                </div>
+
+                <div style="position: relative; top: 0px; width: 100%; display: inline-flex; font-family: Roboto; font-size: 13px;">
+                    <select id="fCodProduto" name="COD_PRODUTO" class="input-textbox" style="position: relative; width: 280px;" disabled>
+                        @foreach (var item in ViewBag.ListaProdutos)
+                        {
+                            <option value="@item.value">
+                                @item.label
+                            </option>
+                        }
+                    </select>
+
+                    <select id="fCodCosif" name="COD_COSIF" class="input-textbox" style="position: relative; width: 300px; left: 10px;" disabled>
+                        @foreach (var item in ViewBag.ListaProdutosCosif)
+                        {
+                            <option value="@item.value">
+                                @item.label
+                            </option>
+                        }
+                    </select>
+
+                </div>
+
+                <div style="position: relative; top: 0px;  width: 100%; display: inline-flex; font-family: Roboto; font-size: 13px;">
+                    <span style="width: 280px; " type="text">Valor:</span>
+                </div>
+
+                <div style="position: relative; top: 0px;  width: 100%; display: inline-flex; font-family: Roboto; font-size: 13px;">
+                    <input id="fValValor" name="VAL_VALOR" class="decimal-2" style="width: 300px; " type="text" disabled>
+                </div>
+
+                <div style="position: relative; top: 0px;  width: 100%; display: inline-flex; font-family: Roboto; font-size: 13px;">
+                    <span style="width: 280px; " type="text">Descrição:</span>
+                </div>
+
+                <div style="position: relative; top: 0px;  width: 100%; display: inline-flex; font-family: Roboto; font-size: 13px;">
+                    <input id="fDesDescricao" name="DES_DESCRICAO" style="width: 300px; " type="text" disabled>
+
+                    <button id="btLimpar" type="button" value="Limpar pesqusia" style="position:relative; width: 80px; height: 25px; border-radius: 10px;" disabled>Limpar</button>
+                    <button id="btNovo" type="button" value="Novo registro" style="position:relative; width: 80px; height: 25px; border-radius: 10px;">Novo</button>
+                    <button id="btIncluir" type="button" value="Incluir registro" style="position:relative; width: 80px; height: 25px; border-radius: 10px;" disabled>Incluir</button>
+
+                </div>
+
+
+
+                <div id="Grid1" style="position: relative; top: 10px; left: 0px; width: 100%; height: 300px; display: inline-flex; font-family: Roboto; font-size: 13px;">
+                    <div class="grid1" style="width: 100%; height: 100px; border: 1px solid #3b4fd2; position: relative; top: 20px; border-radius: 5px;"></div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

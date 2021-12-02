@@ -1,0 +1,223 @@
+﻿
+.grid-header {
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffffff;
+    overflow: hidden;
+    background: #3b4fd2;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    display: inline-flex;
+    vertical-align: middle;
+}
+
+.grid-header-cell {
+    position: relative;
+    padding-left: 10px;
+    display: inline-block;
+}
+
+.grid-sort-active-asc {
+    background-image: url("/Images/sort-asc-white.png");
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position: right;
+    background-position-y: 0px;
+}
+
+
+
+
+.grid-sort-active-desc {
+    background-image: url("/Images/sort-desc-white.png");
+    background-repeat: no-repeat;
+    background-size: 15px;
+    background-position: right;
+}
+
+
+
+
+.grid-item {
+    background-color: #ffffff;
+    font-family: Roboto;
+    font-size: 14px;
+    color: #ffffff;
+    overflow: hidden;
+    display: inline-flex;
+    vertical-align: middle;
+    box-shadow: 0px 0px 3px rgba(0,0,0,.13), 0px 0px 3px rgba(0,0,0,.1), 0px 0px 0px rgba(0,0,0,.05);
+}
+
+    .grid-item:hover {
+        background-color: #efefef;
+        font-family: Roboto;
+        font-size: 14px;
+        color: #ffffff;
+        overflow: hidden;
+        display: inline-flex;
+        vertical-align: middle;
+        box-shadow: 0px 0px 3px rgba(0,0,0,.13), 0px 0px 3px rgba(0,0,0,.1), 0px 0px 0px rgba(0,0,0,.05);
+    }
+
+.grid-item-cell {
+    font-family: Roboto;
+    font-size: 12px;
+    color: #000000;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-flex;
+    vertical-align: middle;
+    position: relative;
+    top: 0px;
+    padding-left: 10px;
+}
+
+.grid-item-active {
+    background-color: #b1cfe8;
+}
+
+.grid-item-removed {
+    text-decoration: line-through;
+    text-decoration-color: #000000;
+}
+
+.grid-item-view-buttom {
+    background-image: url("../Images/view-grid2-gray.png");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: center;
+    position: relative;
+    top: -1px;
+}
+    .grid-item-view-buttom:hover {
+        background-image: url("../Images/view-grid2.png");
+    }
+
+.grid-item-edit-buttom {
+    background-image: url("../Images/edit-grid2-gray.png");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: left;
+    position: relative;
+    top: -1px;
+}
+
+    .grid-item-edit-buttom:hover {
+        background-image: url("../Images/edit-grid2.png");
+    }
+
+.grid-modify-column-buttom {
+    background-image: url("../Images/modify-column.png");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: left;
+    position: relative;
+    left: 10px;
+    top: -1px;
+}
+
+    .grid-modify-column-buttom:hover {
+        background-image: url("../Images/modify-column.png");
+    }
+
+.grid-item-truck-buttom {
+    background-image: url("../Images/truck.png");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: left;
+    position: relative;
+    top: -1px;
+}
+
+    .grid-item-truck-buttom:hover {
+        background-image: url("../Images/truck.png");
+    }
+
+.grid-item-check-on-buttom {
+    background-image: url("../Images/bola_verde.png");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: left;
+    position: relative;
+    top: -1px;
+}
+
+.grid-item-check-off-buttom {
+    background-image: url("../Images/bola_vermelha.png");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: left;
+    position: relative;
+    top: -1px;
+}
+
+.grid-item-add-buttom {
+    background-image: url("../Images/add2-gray.png");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: left;
+    position: relative;
+    top: -1px;
+}
+
+    .grid-item-add-buttom:hover {
+        background-image: url("../Images/add2.png");
+    }
+
+.grid-item-remove-buttom {
+    background-image: url("../Images/error-gray.png");
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: left;
+    position: relative;
+    top: -1px;
+}
+
+    .grid-item-remove-buttom:hover {
+        background-image: url("../Images/error.png");
+    }
+
+.grid-item-overflow {
+    background-image: url("../Images/icon-right.png");
+    background-repeat: no-repeat;
+    background-size: 17px;
+    background-position: right;
+}
+
+.grid-page-button {
+    border-radius: 5px;
+    width: 30px;
+    height: 20px;
+    display: block;
+    text-align: center;
+    border-color: #0000FF;
+    background-color: #E3E3FF;
+    color: #0000FF;
+}
+
+.grid-page-button-selected {
+    border-radius: 5px;
+    width: 30px;
+    height: 20px;
+    display: block;
+    text-align: center;
+    border-color: #0000FF;
+    background-color: #0000FF;
+    color: #FFFFFF;
+}
+
+.grid-loading {
+    background-image: url("../Images/loading2.gif");
+    background-repeat: no-repeat;
+    background-size: 100px;
+    background-position: left;
+    z-index: 1000;
+    position: absolute;
+    top: calc(50% - 50px);
+    left: calc(50% - 50px);
+    width: 100px;
+    height: 100px;
+    display: none;
+}

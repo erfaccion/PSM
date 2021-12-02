@@ -1,0 +1,12 @@
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\bin\Debug\PSM.Database.dll.config
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\bin\Debug\PSM.Database.dll
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\bin\Debug\PSM.Database.pdb
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\bin\Debug\EntityFramework.dll
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\bin\Debug\EntityFramework.xml
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\obj\Debug\PSM.Database.csproj.CoreCompileInputs.cache
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\obj\Debug\PSM.Database.csproj.CopyComplete
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\obj\Debug\PSM.Database.dll
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\obj\Debug\PSM.Database.pdb
+D:\Eliel\Workspaces\Teste PSM\PSM\PSM.Database\obj\Debug\PSM.Database.csprojAssemblyReference.cache

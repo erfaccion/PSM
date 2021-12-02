@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbPSMModelStoreContainer" CdmEntityContainer="dbPSMEntities">
+    <EntitySetMapping Name="MOVIMENTO_MANUAL">
+      <EntityTypeMapping TypeName="dbPSMModel.MOVIMENTO_MANUAL">
+        <MappingFragment StoreEntitySet="MOVIMENTO_MANUAL">
+          <ScalarProperty Name="DAT_MES" ColumnName="DAT_MES" />
+          <ScalarProperty Name="DAT_ANO" ColumnName="DAT_ANO" />
+          <ScalarProperty Name="NUM_LANCAMENTO" ColumnName="NUM_LANCAMENTO" />
+          <ScalarProperty Name="COD_PRODUTO" ColumnName="COD_PRODUTO" />
+          <ScalarProperty Name="COD_COSIF" ColumnName="COD_COSIF" />
+          <ScalarProperty Name="DES_DESCRICAO" ColumnName="DES_DESCRICAO" />
+          <ScalarProperty Name="DAT_MOVIMENTO" ColumnName="DAT_MOVIMENTO" />
+          <ScalarProperty Name="COD_USUARIO" ColumnName="COD_USUARIO" />
+          <ScalarProperty Name="VAL_VALOR" ColumnName="VAL_VALOR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUTO">
+      <EntityTypeMapping TypeName="dbPSMModel.PRODUTO">
+        <MappingFragment StoreEntitySet="PRODUTO">
+          <ScalarProperty Name="COD_PRODUTO" ColumnName="COD_PRODUTO" />
+          <ScalarProperty Name="DES_PRODUTO" ColumnName="DES_PRODUTO" />
+          <ScalarProperty Name="STA_STATUS" ColumnName="STA_STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUTO_COSIF">
+      <EntityTypeMapping TypeName="dbPSMModel.PRODUTO_COSIF">
+        <MappingFragment StoreEntitySet="PRODUTO_COSIF">
+          <ScalarProperty Name="COD_PRODUTO" ColumnName="COD_PRODUTO" />
+          <ScalarProperty Name="COD_COSIF" ColumnName="COD_COSIF" />
+          <ScalarProperty Name="COD_CLASSIFICACAO" ColumnName="COD_CLASSIFICACAO" />
+          <ScalarProperty Name="STA_STATUS" ColumnName="STA_STATUS" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VW_MOVIMENTO_MANUAL">
+      <EntityTypeMapping TypeName="dbPSMModel.VW_MOVIMENTO_MANUAL">
+        <MappingFragment StoreEntitySet="VW_MOVIMENTO_MANUAL">
+          <ScalarProperty Name="VAL_VALOR" ColumnName="VAL_VALOR" />
+          <ScalarProperty Name="COD_USUARIO" ColumnName="COD_USUARIO" />
+          <ScalarProperty Name="DAT_MOVIMENTO" ColumnName="DAT_MOVIMENTO" />
+          <ScalarProperty Name="DES_DESCRICAO" ColumnName="DES_DESCRICAO" />
+          <ScalarProperty Name="COD_COSIF" ColumnName="COD_COSIF" />
+          <ScalarProperty Name="DES_PRODUTO" ColumnName="DES_PRODUTO" />
+          <ScalarProperty Name="COD_PRODUTO" ColumnName="COD_PRODUTO" />
+          <ScalarProperty Name="NUM_LANCAMENTO" ColumnName="NUM_LANCAMENTO" />
+          <ScalarProperty Name="DAT_ANO" ColumnName="DAT_ANO" />
+          <ScalarProperty Name="DAT_MES" ColumnName="DAT_MES" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
