@@ -83,9 +83,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SQL\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <EntityDeploy Include="Entity\dbPsmModel.edmx">
@@ -96,6 +94,7 @@
       <DependentUpon>dbPsmModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
+    <None Include="SQL\dbPSM.bak" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entity\dbPsmModel.Context.tt">
